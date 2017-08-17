@@ -1,0 +1,299 @@
+MongoDB
+*******
+
+Instalando mongo versão atual
+
+- https://www.digitalocean.com/community/tutorials/como-instalar-o-mongodb-no-ubuntu-16-04-pt
+
+A seguir, inicie o serviço recém-criado com systemctl.
+- sudo systemctl start mongodb
+
+Embora não haja uma saída para esse comando, você também pode utilizar o systemctl para verificar que o serviço iniciou de maneira apropriada.
+- sudo systemctl status mongodb
+
+Habilitar o MongoDB para iniciar quando o sistema inicializar.
+- sudo systemctl enable mongodb
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+Tipos de Dado
+s**************
+
+- https://docs.mongodb.com/manual/reference/bson-types/
+
+- Validators
+
+- https://docs.mongodb.com/manual/core/document-validation/
+
+- Pelo bash usando comandos
+
+- sudo mongo
+
+- Criado uma tabela produtos com validator no name, assim ele ja cria um schema com o nome test
+
+- db.createCollection( "produtos", { validator: { $or: [{ name: {$type: "string" }} ] }})
+
+- Inserindo dados
+
+- db.produtos.insert({name: 'Teste 1'})
+
+- Listando dados da tabela
+
+- db.produtos.find()
+
+- Validando o erro, vai dar erro de validate neste caso, pois o campo espera uma string e não um number
+
+- db.produtos.insert(name: 123)
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+Aula CRUD Operations - Querying
+********************************
+
+- Criando db - use teste_mongo
+
+* Insert, insere um documento dentro de uma collections, se a colecction não existe ele cria automaticamente
+
+- db.movies.insert( {name: "Movie 1", author: "Author 1", date: new Date() })
+
+- db.movies.find()
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+* InsertOne - A diferença dele com o insert, é que ele traz tambem o id do documento que ele inseriu
+
+- db.movies.insertOne({ name: "Movie 2", author: "Author 2", date: new Date() })
+
+- retorno
+
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("592eff859eb48a9e2ccfa490")
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+* InsertMany - Para inserir dados como um array de dados por exemplo
+
+- db.movies.insertMany([{ name: "Movie 3", author: "Author 1", date: new Date() }, { name: "Movie 4", author: "Author 4", date: new Date() }])
+
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("592f01099eb48a9e2ccfa491"),
+		ObjectId("592f01099eb48a9e2ccfa492")
+	]
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Crud Operations - Querying
+**************************
+
+- find
+
+- db.movies.find()
+
+- Traz todos os resultados
+
+- db.movies.find({ name: 'Movie 2'})
+
+- Traz todos os resultados com o name movie 2
+
+- Faz a busca trazendo o item = journal e qty < que 10, $lt é o mesmo que o sinal de menor
+- e $gt é igual ao sinal de maior
+
+- db.getCollection('inventory').find({
+
+        item: "journal",
+        qty: {
+            $lt: 50
+        }
+
+    })
+
+    - db.getCollection('inventory').find({
+
+        item: "journal",
+        qty: {
+            $gt: 50
+        }
+
+    })
+
+ Operador or, ou..
+
+- db.getCollection('inventory').find({
+
+	$or: [
+
+        { item: "journal" },
+        {
+        	qty: {
+
+            	$gt: 50
+
+            }
+        }
+
+	]
+
+})
+
+- buscando valores especificos em
+
+db.getCollection('inventory').find({
+
+	"tags": "blank"
+
+})
+
+- ou
+
+db.getCollection('inventory').find({
+
+	"tags": ['blank', 'red'],
+	"item": "planner"
+
+})
+
+- verifica existencia do objeto, true ou false
+
+db.getCollection('inventory').find({
+
+	"item": {
+
+		$exists: false
+
+	}
+})
+
+- limitando campos no retorno da consulta
+
+db.getCollection('inventory').find({
+
+	"item": {
+
+		$exists: true
+
+	}
+}, { item: 1 })
+
+- findOne tras o primeiro resultado da consulta
+
+db.getCollection('inventory').findOne({
+
+	"item": {
+
+		$exists: true
+
+	}
+}, { item: 1 })
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+CRUD Operations - Update
+************************
+
+- Update, enquanto a propriedade item for igual a paper,
+
+db.getCollection('inventory').update({
+
+  item: "paper"
+
+}, {
+     item: "paper2",
+      qty: 110
+})
+
+- fazendo assim o mongo trata esse update como novo arquivo e cria esse arquivo novo com
+as propriedades que foram passadas e perde os outros que ele ja tinha
+para update usar o atributo $set como no exemplo abaixo
+
+db.getCollection('inventory').update({
+
+  item: "paper"
+
+}, {
+
+	$set: {
+
+		item: "paper2",
+      	qty: 110
+
+	}
+
+})
+
+- desse jeito acima ele mantem o seu schema
+
+- Fazendo update em varios registros usando propriedade multi: true
+
+db.getCollection('inventory').update({
+
+  qty: {
+
+      $lt: 60
+
+  }
+
+}, {
+
+    $set: { qty: 58}
+
+}, { multi: true } )
+
+- Removendo propriedade do documento com $unset
+
+db.getCollection('inventory').update({
+
+    item: "journal"
+
+}, {
+
+    $unset: { dim_cm: 0 }
+
+})
+
+- Renomeando campos do documento
+
+db.getCollection('inventory').update({
+
+    item: "journal"
+
+}, {
+
+    $rename: {
+
+        item: "itemname"
+
+    }
+
+})
+
+* updateOne realiza o mesmo processo só que sem o multi
+
+db.getCollection('inventory').updateOne({
+
+    itemname: "journal"
+
+}, {
+
+    $set: {
+
+        itemname: "journal2"
+
+    }
+
+})
+
+
+
+
+
+
+
+
+
+
+

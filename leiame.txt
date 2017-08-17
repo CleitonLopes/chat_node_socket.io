@@ -1,0 +1,119 @@
+Plataforma de chat com Node.js e Socket.io
+-------------------------------------------
+
+Principais Tecnologias
+----------------------
+
+- Node.js
+- Express.js
+- Socket.io
+- Html
+- CSS
+- Javascript
+- MongoDB
+- HTTP
+- TCP
+- API
+- Websocket
+
+Instalação de Ferramentas
+-------------------------
+
+- Instalação mongoDB ubuntu
+
+1. https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+
+2. sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
+
+3. Verificar versão do ubuntu 16.04
+
+4. echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
+
+5. apt-get update
+
+6. apt-get install mongodb-org (Instala ferramentas como o shel o servidor e outras ferramentas)
+
+7. iniciando o servidor - service mongodb start
+
+8. mongo --version
+
+9. iniciando mongo - service mongod start
+
+Mongoose
+--------
+
+- http://mongoosejs.com/
+
+É uma ODM para o mongodb como o eloquent para o laravel, ele ajuda a manipular o mongodb direto no nodejs
+
+WebSockets
+----------
+
+É uma tecnologia que permite a comunicação bidirecional por canais full-duplex sobre um único
+soquete Transmission Control Protocol (TCP). Ele é projetado para ser executado em browsers e
+servidores web que suportem o HTML5, mas pode ser usado por qualquer cliente ou servidor de aplicativos.
+
+- http-server npm, para subir um servidor local
+
+- Instalar http-server global -  npm i http-server -g
+
+- execute http-server
+
+Iniciando o projeto
+--------------------
+
+- npm init
+
+- npm i express --save
+
+* Faz o parser dos dados em formato json para javascript
+- npm i body-parser --save
+
+* Template engine
+- npm i express-hbs --save
+
+* Morgan é basicamente um registrador, em qualquer solicitação que está sendo feita, ele gera logs automaticamente.
+- npm i morgan --save
+
+* Mongose
+- npm i mongoose --save
+
+* Validar item da request e gravar sessão
+- npm i express-validator express-session --save
+
+* Override
+- npm i method-override --save
+
+* O Nodemon é um utilitário que monitorará todas as mudanças em sua fonte e reiniciará automaticamente o servidor. Perfeito para o desenvolvimento.
+- npm i nodemon -g, para usalo em vez de usar node app.js usar nodemon app.js
+
+- touch app.js entrypoint da aplicacao
+
+Pastas
+------
+
+- public/ - contem arquivos estáticos para o usuario, js, img, css etc
+
+- src/ - contem estrutura do projeto
+
+- src/index.js - caminho de entrada para routes
+
+- src/config/ - tipos de configuracoes
+
+- src/routes/ - pontos de entrada do cliente para app
+
+- src/schemas/ - definido o schema utilizando de cada projeto
+
+- src/services/ - logica do negocio
+
+- src/views/ - templates
+
+- src/views/partials - templates parciais para serem incluso dentro do template padrão
+
+- src/views/layout - base do template
+
+Setando servidor e configuração
+--------------------------------
+
+- 
+
