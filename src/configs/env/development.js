@@ -8,6 +8,7 @@ const expressSession = require('express-session')
 const expressValidator = require('express-validator')
 const bodyParser = require('body-parser')
 const hbs = require('express-hbs')
+const express = require('express')
 
 module.exports = (app) => {
 
@@ -22,6 +23,10 @@ module.exports = (app) => {
 	app.set('views', path.join(__dirname, './../../../build/views'))
 
 	app.set('view engine', 'hbs')
+
+	app.set('assets', path.join(__dirname, './../../../build'))
+
+	app.use(express.static(app.get('assets')))
 
 	app.use(morgan('dev'))
 
@@ -41,9 +46,10 @@ module.exports = (app) => {
 
 	app.use(expressValidator())
 
+	// configura ponto de entrada para as views
 	app.engine('hbs', hbs.express4({
 
-		defaultLayout: path.join(app.get('views'), 'layout/main.hbs'),
+		defaultLayout: path.join(app.get('views'), 'layouts/main.hbs'),
 		partialsDir: path.join(app.get('views'), 'partials'),
 		layoutsDir: path.join(app.get('views'), 'layouts')
 

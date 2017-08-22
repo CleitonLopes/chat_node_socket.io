@@ -8,6 +8,7 @@ const expressSession = require('express-session')
 const expressValidator = require('express-validator')
 const bodyParser = require('body-parser')
 const hbs = require('express-hbs')
+const express = require('express')
 
 modules.exports = (app) => {
 
@@ -17,9 +18,13 @@ modules.exports = (app) => {
 
 	app.set('host', '127.0.0.1')
 
-	app.set('views', path.join(__dirname, './../../../build/views'))
+	app.set('views', path.join(__dirname, './../../../dist/views'))
 
 	app.set('view engine', 'hbs')
+
+	app.set('assets', path.join(__dirname, './../../../dist'))
+
+	app.use(express.static(app.get('assets')))
 
 	app.use(morgan('conbined'))
 

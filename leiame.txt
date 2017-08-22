@@ -115,5 +115,30 @@ Pastas
 Setando servidor e configuração
 --------------------------------
 
-- 
+- Criado dois arquivos na pasta configs, development e prod dentro da pasta env, e setado
+configurações pertinentes a ambiente de desenvolvimento, no arquivo developemnt, foram setados
+tambem templates, views e outros pacotes e em production setados demais para ambiente de produção
+
+Setando front end e configurações
+---------------------------------
+
+- Instalação Gulp e outras dependencias em --save-dev para trabalhar de forma correta
+
+- npm i gulp --save-dev
+
+- npm i gulp-nodemon gulp-notify gulp-changed gulp-livereload del gulp-util gulp-concat gulp-plumber gulp-imagemin gulp-minify-css gulp-minify-html
+gulp-rev gulp-rev-collector gulp-uglify gulp-sass node-neat --save-dev
+
+- touch gulpfile.js na pasta raiz
+
+npm i --save-dev jquery
+
+- npm i --save-dev bootstrap@3
+
+Criando painel dashboard
+------------------------
+
+
+
+
 
