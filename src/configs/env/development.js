@@ -9,6 +9,7 @@ const expressValidator = require('express-validator')
 const bodyParser = require('body-parser')
 const hbs = require('express-hbs')
 const express = require('express')
+const mongoose = require('mongoose')
 
 module.exports = (app) => {
 
@@ -25,6 +26,15 @@ module.exports = (app) => {
 	app.set('view engine', 'hbs')
 
 	app.set('assets', path.join(__dirname, './../../../build'))
+
+	// configuracoes mongo
+	app.set('mongo_host', '127.0.0.1')
+
+	app.set('mongo_port', 27017)
+
+	app.set('mongo_db', 'chatscholl_dev')
+
+	app.set('mongo_url', `mongodb://${app.get('mongo_host')}:${app.get('mongo_port')}/${app.get('mongo_db')}`)
 
 	app.use(express.static(app.get('assets')))
 
@@ -54,5 +64,12 @@ module.exports = (app) => {
 		layoutsDir: path.join(app.get('views'), 'layouts')
 
 	}))
+
+	// mongo connect
+	mongoose.connect(app.get('mongo_url'), {
+
+		 useMongoClient: true
+
+	})
 
 }

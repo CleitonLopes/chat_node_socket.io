@@ -1,6 +1,10 @@
 Plataforma de chat com Node.js e Socket.io
 -------------------------------------------
 
+OBS
+---
+- killall -9 node mata processo do node
+
 Principais Tecnologias
 ----------------------
 
@@ -137,6 +141,17 @@ npm i --save-dev jquery
 
 Criando painel dashboard
 ------------------------
+
+- Criado template no header e footer, e criado classes no css
+
+Definição do schema inicial - User
+----------------------------------
+
+- Starta mongo db
+
+- sudo systemctl start mongodb
+
+- criado users.js dentro de schemas
 
 
 
